@@ -169,37 +169,92 @@ button:hover {
 
 
 /* ==========================
-   8. Cartes
+   Cartes visuelles
 ========================== */
 
 .card {
-  background-color: var(--surface);
-  border-radius: 22px;
-  padding: 22px;
-  box-shadow: var(--shadow);
-  border: 1px solid var(--border);
-  transition: 0.2s ease;
+  background-color: white;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  transition: 0.25s ease;
+  cursor: pointer;
 }
 
 .card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-6px);
+}
+
+.card-banner {
+  height: 120px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 16px;
+}
+
+.card-type {
+  background-color: rgba(255, 255, 255, 0.85);
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.card-content {
+  padding: 22px;
 }
 
 .card h2 {
   margin-top: 0;
-  margin-bottom: 14px;
-  font-size: 22px;
+  margin-bottom: 10px;
+  font-size: 24px;
 }
 
-.card p {
-  margin: 8px 0;
-  color: var(--text-muted);
+.creator {
+  color: #666;
+  margin-bottom: 16px;
+  font-weight: 600;
 }
 
-.card strong {
-  color: var(--text);
+.description {
+  color: #444;
+  line-height: 1.5;
+  margin-bottom: 18px;
 }
 
+.tags-container {
+  margin-bottom: 20px;
+}
+
+.tag {
+  display: inline-block;
+  background-color: #f1ece5;
+  color: #444;
+  padding: 6px 11px;
+  border-radius: 999px;
+  margin-right: 6px;
+  margin-bottom: 6px;
+  font-size: 13px;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.rating {
+  font-weight: bold;
+}
+
+.delete-button {
+  background-color: #8b0000;
+}
+
+.delete-button:hover {
+  background-color: #b00000;
+}
 
 /* ==========================
    9. Tags
