@@ -6,12 +6,16 @@
   --background: #f6f3ee;
   --surface: #ffffff;
   --surface-soft: #f0ebe3;
+
   --text: #1f1f1f;
-  --text-muted: #666;
+  --text-muted: #666666;
+
   --primary: #2f4f4f;
   --primary-hover: #243d3d;
+
   --danger: #9b2c2c;
   --danger-hover: #7f1d1d;
+
   --border: #ddd6cc;
   --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
 }
@@ -22,7 +26,7 @@
 ========================== */
 
 body {
-  font-family: Inter, Arial, sans-serif;
+  font-family: Arial, sans-serif;
   background: linear-gradient(180deg, #f9f6f1 0%, var(--background) 100%);
   color: var(--text);
   margin: 0;
@@ -72,6 +76,11 @@ header p {
   margin-bottom: 22px;
 }
 
+
+/* ==========================
+   5. Boutons
+========================== */
+
 button {
   background-color: var(--primary);
   color: white;
@@ -90,7 +99,7 @@ button:hover {
 
 
 /* ==========================
-   5. Recherche
+   6. Recherche
 ========================== */
 
 #search-section {
@@ -114,7 +123,7 @@ button:hover {
 
 
 /* ==========================
-   6. Formulaire
+   7. Formulaire
 ========================== */
 
 #form-section {
@@ -143,7 +152,7 @@ button:hover {
   border: 1px solid var(--border);
   border-radius: 12px;
   font-size: 15px;
-  background-color: #fff;
+  background-color: white;
 }
 
 #item-form input:focus,
@@ -158,7 +167,7 @@ button:hover {
 
 
 /* ==========================
-   7. Bibliothèque
+   8. Grille de bibliothèque
 ========================== */
 
 #library {
@@ -169,16 +178,17 @@ button:hover {
 
 
 /* ==========================
-   Cartes visuelles
+   9. Cartes
 ========================== */
 
 .card {
-  background-color: white;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 24px;
   overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-  transition: 0.25s ease;
+  box-shadow: var(--shadow);
   cursor: pointer;
+  transition: 0.25s ease;
 }
 
 .card:hover {
@@ -186,13 +196,10 @@ button:hover {
 }
 
 .card-banner {
-  height: 220px;
-  background-size: cover;
-  background-position: center;
-  position: relative;
+  height: 140px;
   display: flex;
-  justify-content: flex-end;
   align-items: flex-start;
+  justify-content: flex-end;
   padding: 16px;
 }
 
@@ -215,16 +222,21 @@ button:hover {
 }
 
 .creator {
-  color: #666;
+  color: var(--text-muted);
   margin-bottom: 16px;
   font-weight: 600;
 }
 
 .description {
-  color: #444;
+  color: #444444;
   line-height: 1.5;
   margin-bottom: 18px;
 }
+
+
+/* ==========================
+   10. Tags
+========================== */
 
 .tags-container {
   margin-bottom: 20px;
@@ -232,14 +244,20 @@ button:hover {
 
 .tag {
   display: inline-block;
-  background-color: #f1ece5;
-  color: #444;
+  background-color: var(--surface-soft);
+  color: var(--primary);
   padding: 6px 11px;
   border-radius: 999px;
   margin-right: 6px;
   margin-bottom: 6px;
   font-size: 13px;
+  font-weight: 600;
 }
+
+
+/* ==========================
+   11. Pied de carte
+========================== */
 
 .card-footer {
   display: flex;
@@ -247,42 +265,18 @@ button:hover {
   align-items: center;
 }
 
-.rating {
+.rating,
+.detail-rating {
   font-weight: bold;
 }
 
-.delete-button {
-  background-color: #8b0000;
-}
-
-.delete-button:hover {
-  background-color: #b00000;
-}
 
 /* ==========================
-   9. Tags
-========================== */
-
-.tag {
-  display: inline-block;
-  background-color: var(--surface-soft);
-  color: var(--primary);
-  padding: 6px 11px;
-  border-radius: 999px;
-  margin-top: 12px;
-  margin-right: 6px;
-  font-size: 13px;
-  font-weight: 600;
-}
-
-
-/* ==========================
-   10. Bouton supprimer
+   12. Bouton supprimer
 ========================== */
 
 .delete-button {
   background-color: var(--danger);
-  margin-top: 18px;
 }
 
 .delete-button:hover {
@@ -291,7 +285,54 @@ button:hover {
 
 
 /* ==========================
-   11. Responsive mobile
+   13. Vue détail
+========================== */
+
+.hidden {
+  display: none;
+}
+
+#detail-view {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  overflow: hidden;
+  margin-bottom: 30px;
+  box-shadow: var(--shadow);
+}
+
+.detail-banner {
+  height: 220px;
+}
+
+.detail-content {
+  padding: 32px;
+}
+
+.detail-content h2 {
+  margin-top: 0;
+  font-size: 38px;
+}
+
+.detail-meta {
+  color: var(--text-muted);
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+
+.detail-description {
+  line-height: 1.7;
+  font-size: 17px;
+  margin-bottom: 24px;
+}
+
+.close-button {
+  margin-top: 20px;
+}
+
+
+/* ==========================
+   14. Responsive mobile
 ========================== */
 
 @media (max-width: 700px) {
@@ -310,51 +351,8 @@ button:hover {
   #filters button {
     width: auto;
   }
-}
 
-/* ==========================
-   Vue détail
-========================== */
-
-.hidden {
-  display: none;
-}
-
-#detail-view {
-  background-color: white;
-  border-radius: 24px;
-  overflow: hidden;
-  margin-bottom: 30px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-}
-
-.detail-banner {
-  height: 320px;
-  background-size: cover;
-  background-position: center;
-}
-
-.detail-content {
-  padding: 32px;
-}
-
-.detail-content h2 {
-  margin-top: 0;
-  font-size: 38px;
-}
-
-.detail-meta {
-  color: #666;
-  margin-bottom: 20px;
-  font-size: 18px;
-}
-
-.detail-description {
-  line-height: 1.7;
-  font-size: 17px;
-  margin-bottom: 24px;
-}
-
-.close-button {
-  margin-top: 20px;
+  .detail-content h2 {
+    font-size: 30px;
+  }
 }
