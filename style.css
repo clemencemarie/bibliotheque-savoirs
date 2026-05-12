@@ -1,33 +1,63 @@
 /* ==========================
-   1. Styles généraux
+   1. Variables
+========================== */
+
+:root {
+  --background: #f6f3ee;
+  --surface: #ffffff;
+  --surface-soft: #f0ebe3;
+  --text: #1f1f1f;
+  --text-muted: #666;
+  --primary: #2f4f4f;
+  --primary-hover: #243d3d;
+  --danger: #9b2c2c;
+  --danger-hover: #7f1d1d;
+  --border: #ddd6cc;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+
+/* ==========================
+   2. Base
 ========================== */
 
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
+  font-family: Inter, Arial, sans-serif;
+  background: linear-gradient(180deg, #f9f6f1 0%, var(--background) 100%);
+  color: var(--text);
   margin: 0;
   padding: 0;
 }
 
-
-/* ==========================
-   2. En-tête
-========================== */
-
-header {
-  background-color: #222;
-  color: white;
-  padding: 30px;
-  text-align: center;
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px 20px;
 }
 
 
 /* ==========================
-   3. Structure principale
+   3. En-tête
 ========================== */
 
-main {
-  padding: 20px;
+header {
+  background: linear-gradient(135deg, #223333, #3f5f5f);
+  color: white;
+  padding: 56px 20px;
+  text-align: center;
+}
+
+header h1 {
+  font-size: 42px;
+  margin: 0 0 12px;
+}
+
+header p {
+  max-width: 650px;
+  margin: 0 auto;
+  color: #e8eeee;
+  font-size: 18px;
+  line-height: 1.5;
 }
 
 
@@ -36,21 +66,26 @@ main {
 ========================== */
 
 #filters {
-  margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 22px;
 }
 
 button {
-  background-color: #222;
+  background-color: var(--primary);
   color: white;
   border: none;
-  padding: 10px 15px;
-  margin-right: 10px;
-  border-radius: 5px;
+  padding: 11px 16px;
+  border-radius: 999px;
   cursor: pointer;
+  font-weight: 600;
+  transition: 0.2s ease;
 }
 
 button:hover {
-  background-color: #444;
+  background-color: var(--primary-hover);
+  transform: translateY(-1px);
 }
 
 
@@ -59,16 +94,22 @@ button:hover {
 ========================== */
 
 #search-section {
-  margin-bottom: 20px;
+  margin-bottom: 22px;
 }
 
 #search-input {
   width: 100%;
-  max-width: 400px;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  box-sizing: border-box;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
   font-size: 16px;
+  background-color: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+#search-input:focus {
+  outline: 2px solid #9fb7b7;
 }
 
 
@@ -77,22 +118,42 @@ button:hover {
 ========================== */
 
 #form-section {
-  background-color: white;
-  padding: 20px;
-  border-radius: 10px;
-  margin-bottom: 30px;
+  background-color: var(--surface);
+  padding: 24px;
+  border-radius: 22px;
+  margin-bottom: 32px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+}
+
+#form-section h2 {
+  margin-top: 0;
+  margin-bottom: 18px;
 }
 
 #item-form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
 }
 
 #item-form input,
 #item-form select {
-  padding: 12px;
-  font-size: 16px;
+  padding: 13px 14px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  font-size: 15px;
+  background-color: #fff;
+}
+
+#item-form input:focus,
+#item-form select:focus {
+  outline: 2px solid #9fb7b7;
+}
+
+#item-form button {
+  grid-column: 1 / -1;
+  justify-self: start;
 }
 
 
@@ -102,8 +163,8 @@ button:hover {
 
 #library {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 22px;
 }
 
 
@@ -112,14 +173,31 @@ button:hover {
 ========================== */
 
 .card {
-  background-color: white;
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background-color: var(--surface);
+  border-radius: 22px;
+  padding: 22px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  transition: 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
 }
 
 .card h2 {
   margin-top: 0;
+  margin-bottom: 14px;
+  font-size: 22px;
+}
+
+.card p {
+  margin: 8px 0;
+  color: var(--text-muted);
+}
+
+.card strong {
+  color: var(--text);
 }
 
 
@@ -129,12 +207,14 @@ button:hover {
 
 .tag {
   display: inline-block;
-  background-color: #ddd;
-  padding: 5px 10px;
-  border-radius: 20px;
-  margin-top: 10px;
-  margin-right: 5px;
-  font-size: 12px;
+  background-color: var(--surface-soft);
+  color: var(--primary);
+  padding: 6px 11px;
+  border-radius: 999px;
+  margin-top: 12px;
+  margin-right: 6px;
+  font-size: 13px;
+  font-weight: 600;
 }
 
 
@@ -143,10 +223,33 @@ button:hover {
 ========================== */
 
 .delete-button {
-  background-color: #8b0000;
-  margin-top: 15px;
+  background-color: var(--danger);
+  margin-top: 18px;
 }
 
 .delete-button:hover {
-  background-color: #b00000;
+  background-color: var(--danger-hover);
+}
+
+
+/* ==========================
+   11. Responsive mobile
+========================== */
+
+@media (max-width: 700px) {
+  header h1 {
+    font-size: 32px;
+  }
+
+  #item-form {
+    grid-template-columns: 1fr;
+  }
+
+  button {
+    width: 100%;
+  }
+
+  #filters button {
+    width: auto;
+  }
 }
