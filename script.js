@@ -11,8 +11,7 @@ let items = JSON.parse(localStorage.getItem("items")) || [
     rating: 4,
     tags: ["technologie", "surveillance"],
     color: "#F4A261",
-    description: "Un roman sur les dérives de la transparence numérique, de la surveillance et des grandes plateformes.",
-    image: "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1376915260i/18302455.jpg"
+    description: "Un roman sur les dérives de la transparence numérique, de la surveillance et des grandes plateformes."
   },
   {
     id: 2,
@@ -22,8 +21,7 @@ let items = JSON.parse(localStorage.getItem("items")) || [
     rating: 5,
     tags: ["écologie", "japon"],
     color: "#2A9D8F",
-    description: "Un film d’animation sur le rapport entre les humains, la forêt, les esprits et la violence industrielle.",
-    image: "https://m.media-amazon.com/images/M/MV5BMTQ5ODMyNTgzOV5BMl5BanBnXkFtZTcwNzg0NjEzNw@@._V1_.jpg"
+    description: "Un film d’animation sur le rapport entre les humains, la forêt, les esprits et la violence industrielle."
   },
   {
     id: 3,
@@ -33,14 +31,13 @@ let items = JSON.parse(localStorage.getItem("items")) || [
     rating: 5,
     tags: ["musique", "rock"],
     color: "#E76F51",
-    description: "Un album dense, sensible et atmosphérique, entre mélancolie, tension et beauté sonore.",
-    image: "https://upload.wikimedia.org/wikipedia/en/2/2e/In_Rainbows_Official_Cover.jpg"
+    description: "Un album dense, sensible et atmosphérique, entre mélancolie, tension et beauté sonore."
   }
 ];
 
 
 // ==========================
-// 2. Éléments HTML
+// 2. Sélection des éléments HTML
 // ==========================
 
 const library = document.getElementById("library");
@@ -57,7 +54,7 @@ const tagsInput = document.getElementById("tags");
 
 
 // ==========================
-// 3. Sauvegarde
+// 3. Sauvegarde locale
 // ==========================
 
 function saveItems() {
@@ -66,7 +63,7 @@ function saveItems() {
 
 
 // ==========================
-// 4. Affichage des œuvres
+// 4. Affichage de la bibliothèque
 // ==========================
 
 function displayItems(itemsToDisplay) {
@@ -74,16 +71,13 @@ function displayItems(itemsToDisplay) {
 
   itemsToDisplay.forEach(item => {
     const card = document.createElement("div");
-    card.classList.add("card");
 
-    const bannerStyle = item.image
-      ? `background-image: url('${item.image}');`
-      : `background-color: ${item.color};`;
+    card.classList.add("card");
 
     card.innerHTML = `
       <div
         class="card-banner"
-        style="${bannerStyle}"
+        style="background-color: ${item.color};"
       >
         <span class="card-type">${item.type}</span>
       </div>
@@ -100,7 +94,9 @@ function displayItems(itemsToDisplay) {
         </p>
 
         <div class="tags-container">
-          ${item.tags.map(tag => `<span class="tag">${tag}</span>`).join("")}
+          ${item.tags
+            .map(tag => `<span class="tag">${tag}</span>`)
+            .join("")}
         </div>
 
         <div class="card-footer">
@@ -132,18 +128,14 @@ function displayItems(itemsToDisplay) {
 
 
 // ==========================
-// 5. Affichage du détail
+// 5. Affichage de la fiche détail
 // ==========================
 
 function showDetails(item) {
-  const detailBannerStyle = item.image
-    ? `background-image: url('${item.image}');`
-    : `background-color: ${item.color};`;
-
   detailView.innerHTML = `
     <div
       class="detail-banner"
-      style="${detailBannerStyle}"
+      style="background-color: ${item.color};"
     ></div>
 
     <div class="detail-content">
@@ -157,11 +149,13 @@ function showDetails(item) {
         ${item.description}
       </p>
 
-      <div>
-        ${item.tags.map(tag => `<span class="tag">${tag}</span>`).join("")}
+      <div class="tags-container">
+        ${item.tags
+          .map(tag => `<span class="tag">${tag}</span>`)
+          .join("")}
       </div>
 
-      <p>
+      <p class="detail-rating">
         ⭐ ${item.rating}/5
       </p>
 
@@ -210,6 +204,7 @@ filterButtons.forEach(button => {
       displayItems(items);
     } else {
       const filteredItems = items.filter(item => item.type === selectedType);
+
       displayItems(filteredItems);
     }
   });
@@ -227,7 +222,9 @@ searchInput.addEventListener("input", () => {
     return (
       item.title.toLowerCase().includes(searchText) ||
       item.creator.toLowerCase().includes(searchText) ||
-      item.tags.some(tag => tag.toLowerCase().includes(searchText))
+      item.tags.some(tag =>
+        tag.toLowerCase().includes(searchText)
+      )
     );
   });
 
@@ -253,8 +250,7 @@ form.addEventListener("submit", event => {
       .map(tag => tag.trim())
       .filter(tag => tag !== ""),
     color: "#8AB17D",
-    description: "Aucune description ajoutée pour le moment.",
-    image: ""
+    description: "Aucune description ajoutée pour le moment."
   };
 
   items.push(newItem);
