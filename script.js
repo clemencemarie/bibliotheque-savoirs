@@ -35,19 +35,23 @@ let items = JSON.parse(localStorage.getItem("items")) || [
   }
 ];
 
+
 // ==========================
 // 2. Éléments HTML
 // ==========================
 
 const library = document.getElementById("library");
+const detailView = document.getElementById("detail-view");
 const filterButtons = document.querySelectorAll("#filters button");
 const searchInput = document.getElementById("search-input");
+
 const form = document.getElementById("item-form");
 const titleInput = document.getElementById("title");
 const creatorInput = document.getElementById("creator");
 const typeInput = document.getElementById("type");
 const ratingInput = document.getElementById("rating");
 const tagsInput = document.getElementById("tags");
+
 
 // ==========================
 // 3. Sauvegarde
@@ -56,6 +60,7 @@ const tagsInput = document.getElementById("tags");
 function saveItems() {
   localStorage.setItem("items", JSON.stringify(items));
 }
+
 
 // ==========================
 // 4. Affichage des œuvres
@@ -69,40 +74,50 @@ function displayItems(itemsToDisplay) {
     card.classList.add("card");
 
     card.innerHTML = `
-    <div 
-      class="card-banner"
-      style="background-color: ${item.color};"
-    >
-    <span class="card-type">${item.type}</span>
-    </div>
-
-    <div class="card-content">
-      <h2>${item.title}</h2>
-      <p class="creator">
-      ${item.creator}
-      </p>
-      <p class="description">
-      ${item.description}
-      </p>
-    <div class="tags-container">
-      ${item.tags.map(tag =>
-        `<span class="tag">${tag}</span>`
-      ).join("")}
-    </div>
-
-    <div class="card-footer">
-      <span class="rating">
-        ⭐ ${item.rating}/5
-      </span>
-      <button
-        class="delete-button"
-        data-id="${item.id}"
+      <div
+        class="card-banner"
+        style="background-color: ${item.color};"
       >
-        Supprimer
-      </button>
-    </div>
-  </div>
-`;
+        <span class="card-type">${item.type}</span>
+      </div>
+
+      <div class="card-content">
+        <h2>${item.title}</h2>
+
+        <p class="creator">
+          ${item.creator}
+        </p>
+
+        <p class="description">
+          ${item.description}
+        </p>
+
+        <div class="tags-container">
+          ${item.tags.map(tag => `<span class="tag">${tag}</span>`).join("")}
+        </div>
+
+        <div class="card-footer">
+          <span class="rating">
+            ⭐ ${item.rating}/5
+          </span>
+
+          <button
+            class="delete-button"
+            data-id="${item.id}"
+          >
+            Supprimer
+          </button>
+        </div>
+      </div>
+    `;
+
+    card.addEventListener("click", event => {
+      if (event.target.classList.contains("delete-button")) {
+        return;
+      }
+
+      showDetails(item);
+    });
 
     library.appendChild(card);
   });
@@ -110,7 +125,53 @@ function displayItems(itemsToDisplay) {
 
 
 // ==========================
-// 5. Suppression d’une œuvre
+// 5. Affichage du détail
+// ==========================
+
+function showDetails(item) {
+  detailView.innerHTML = `
+    <div
+      class="detail-banner"
+      style="background-color: ${item.color};"
+    ></div>
+
+    <div class="detail-content">
+      <h2>${item.title}</h2>
+
+      <p class="detail-meta">
+        ${item.type} · ${item.creator}
+      </p>
+
+      <p class="detail-description">
+        ${item.description}
+      </p>
+
+      <div>
+        ${item.tags.map(tag => `<span class="tag">${tag}</span>`).join("")}
+      </div>
+
+      <p>
+        ⭐ ${item.rating}/5
+      </p>
+
+      <button class="close-button">
+        Fermer
+      </button>
+    </div>
+  `;
+
+  detailView.classList.remove("hidden");
+
+  const closeButton = detailView.querySelector(".close-button");
+
+  closeButton.addEventListener("click", () => {
+    detailView.classList.add("hidden");
+  });
+}
+
+
+// ==========================
+// 6. Suppression d’une œuvre
 // ==========================
 
 library.addEventListener("click", event => {
@@ -121,11 +182,13 @@ library.addEventListener("click", event => {
 
     saveItems();
     displayItems(items);
+    detailView.classList.add("hidden");
   }
 });
 
+
 // ==========================
-// 6. Filtrage par type
+// 7. Filtrage par type
 // ==========================
 
 filterButtons.forEach(button => {
@@ -141,8 +204,9 @@ filterButtons.forEach(button => {
   });
 });
 
+
 // ==========================
-// 7. Recherche
+// 8. Recherche
 // ==========================
 
 searchInput.addEventListener("input", () => {
@@ -159,8 +223,9 @@ searchInput.addEventListener("input", () => {
   displayItems(filteredItems);
 });
 
+
 // ==========================
-// 8. Ajout d’une œuvre
+// 9. Ajout d’une œuvre
 // ==========================
 
 form.addEventListener("submit", event => {
@@ -175,7 +240,9 @@ form.addEventListener("submit", event => {
     tags: tagsInput.value
       .split(",")
       .map(tag => tag.trim())
-      .filter(tag => tag !== "")
+      .filter(tag => tag !== ""),
+    color: "#8AB17D",
+    description: "Aucune description ajoutée pour le moment."
   };
 
   items.push(newItem);
@@ -186,8 +253,9 @@ form.addEventListener("submit", event => {
   form.reset();
 });
 
+
 // ==========================
-// 9. Affichage initial
+// 10. Affichage initial
 // ==========================
 
 displayItems(items);
