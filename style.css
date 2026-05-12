@@ -89,3 +89,11 @@ button:hover {
   padding: 12px;
   font-size: 16px;
 }
+.delete-button {
+  background-color: #8b0000;
+  margin-top: 15px;
+}
+
+.delete-button:hover {
+  background-color: #b00000;
+}
