@@ -14,8 +14,6 @@
   --primary-hover: #243d3d;
 
   --danger: #9b2c2c;
-  --danger-hover: #7f1d1d;
-
   --border: #ddd6cc;
   --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
 }
@@ -178,7 +176,28 @@ button:hover {
 
 
 /* ==========================
-   9. Cartes
+   9. Couleurs par catégorie
+========================== */
+
+.category-book {
+  background: linear-gradient(135deg, #e9c46a, #f4a261);
+}
+
+.category-movie {
+  background: linear-gradient(135deg, #2a9d8f, #264653);
+}
+
+.category-album {
+  background: linear-gradient(135deg, #e76f51, #8338ec);
+}
+
+.category-default {
+  background: linear-gradient(135deg, #8ab17d, #577590);
+}
+
+
+/* ==========================
+   10. Cartes
 ========================== */
 
 .card {
@@ -215,27 +234,34 @@ button:hover {
   padding: 22px;
 }
 
-.card h2 {
-  margin-top: 0;
-  margin-bottom: 10px;
+.card-title-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.card-title-row h2 {
+  margin: 0;
   font-size: 24px;
 }
 
 .creator {
   color: var(--text-muted);
-  margin-bottom: 16px;
+  margin-top: 10px;
+  margin-bottom: 18px;
   font-weight: 600;
 }
 
-.description {
-  color: #444444;
-  line-height: 1.5;
-  margin-bottom: 18px;
+.details-hint {
+  color: var(--text-muted);
+  font-size: 14px;
+  font-weight: 600;
 }
 
 
 /* ==========================
-   10. Tags
+   11. Tags
 ========================== */
 
 .tags-container {
@@ -256,7 +282,43 @@ button:hover {
 
 
 /* ==========================
-   11. Pied de carte
+   12. Notes
+========================== */
+
+.rating-badge {
+  min-width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 18px;
+  color: white;
+  flex-shrink: 0;
+}
+
+.rating-good {
+  background: linear-gradient(135deg, #2a9d8f, #1b7f6f);
+}
+
+.rating-medium {
+  background: linear-gradient(135deg, #f4a261, #e76f51);
+}
+
+.rating-low {
+  background: linear-gradient(135deg, #b23a48, #7f1d1d);
+}
+
+.detail-rating {
+  min-width: 54px;
+  height: 54px;
+  font-size: 24px;
+}
+
+
+/* ==========================
+   13. Pied de carte
 ========================== */
 
 .card-footer {
@@ -265,27 +327,29 @@ button:hover {
   align-items: center;
 }
 
-.rating,
-.detail-rating {
-  font-weight: bold;
-}
-
 
 /* ==========================
-   12. Bouton supprimer
+   14. Bouton supprimer
 ========================== */
 
 .delete-button {
-  background-color: var(--danger);
+  background: transparent;
+  color: var(--text-muted);
+  padding: 6px 8px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
 }
 
 .delete-button:hover {
-  background-color: var(--danger-hover);
+  background-color: #f3dddd;
+  color: var(--danger);
+  transform: none;
 }
 
 
 /* ==========================
-   13. Vue détail
+   15. Vue détail
 ========================== */
 
 .hidden {
@@ -332,7 +396,7 @@ button:hover {
 
 
 /* ==========================
-   14. Responsive mobile
+   16. Responsive mobile
 ========================== */
 
 @media (max-width: 700px) {
