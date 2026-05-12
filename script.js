@@ -9,7 +9,9 @@ let items = JSON.parse(localStorage.getItem("items")) || [
     type: "Livre",
     creator: "Dave Eggers",
     rating: 4,
-    tags: ["technologie", "surveillance"]
+    tags: ["technologie", "surveillance"],
+    color: "#F4A261",
+    description: "Un roman sur les dérives de la transparence numérique, de la surveillance et des grandes plateformes."
   },
   {
     id: 2,
@@ -17,7 +19,9 @@ let items = JSON.parse(localStorage.getItem("items")) || [
     type: "Film",
     creator: "Hayao Miyazaki",
     rating: 5,
-    tags: ["écologie", "japon"]
+    tags: ["écologie", "japon"],
+    color: "#2A9D8F",
+    description: "Un film d’animation sur le rapport entre les humains, la forêt, les esprits et la violence industrielle."
   },
   {
     id: 3,
@@ -25,10 +29,11 @@ let items = JSON.parse(localStorage.getItem("items")) || [
     type: "Album",
     creator: "Radiohead",
     rating: 5,
-    tags: ["musique", "rock"]
+    tags: ["musique", "rock"],
+    color: "#E76F51",
+    description: "Un album dense, sensible et atmosphérique, entre mélancolie, tension et beauté sonore."
   }
 ];
-
 
 // ==========================
 // 2. Éléments HTML
@@ -37,14 +42,12 @@ let items = JSON.parse(localStorage.getItem("items")) || [
 const library = document.getElementById("library");
 const filterButtons = document.querySelectorAll("#filters button");
 const searchInput = document.getElementById("search-input");
-
 const form = document.getElementById("item-form");
 const titleInput = document.getElementById("title");
 const creatorInput = document.getElementById("creator");
 const typeInput = document.getElementById("type");
 const ratingInput = document.getElementById("rating");
 const tagsInput = document.getElementById("tags");
-
 
 // ==========================
 // 3. Sauvegarde
@@ -53,7 +56,6 @@ const tagsInput = document.getElementById("tags");
 function saveItems() {
   localStorage.setItem("items", JSON.stringify(items));
 }
-
 
 // ==========================
 // 4. Affichage des œuvres
@@ -67,20 +69,40 @@ function displayItems(itemsToDisplay) {
     card.classList.add("card");
 
     card.innerHTML = `
+    <div 
+      class="card-banner"
+      style="background-color: ${item.color};"
+    >
+    <span class="card-type">${item.type}</span>
+    </div>
+
+    <div class="card-content">
       <h2>${item.title}</h2>
+      <p class="creator">
+      ${item.creator}
+      </p>
+      <p class="description">
+      ${item.description}
+      </p>
+    <div class="tags-container">
+      ${item.tags.map(tag =>
+        `<span class="tag">${tag}</span>`
+      ).join("")}
+    </div>
 
-      <p><strong>Type :</strong> ${item.type}</p>
-      <p><strong>Créateur :</strong> ${item.creator}</p>
-      <p><strong>Note :</strong> ${item.rating}/5</p>
-
-      <div>
-        ${item.tags.map(tag => `<span class="tag">${tag}</span>`).join("")}
-      </div>
-
-      <button class="delete-button" data-id="${item.id}">
+    <div class="card-footer">
+      <span class="rating">
+        ⭐ ${item.rating}/5
+      </span>
+      <button
+        class="delete-button"
+        data-id="${item.id}"
+      >
         Supprimer
       </button>
-    `;
+    </div>
+  </div>
+`;
 
     library.appendChild(card);
   });
@@ -102,7 +124,6 @@ library.addEventListener("click", event => {
   }
 });
 
-
 // ==========================
 // 6. Filtrage par type
 // ==========================
@@ -119,7 +140,6 @@ filterButtons.forEach(button => {
     }
   });
 });
-
 
 // ==========================
 // 7. Recherche
@@ -138,7 +158,6 @@ searchInput.addEventListener("input", () => {
 
   displayItems(filteredItems);
 });
-
 
 // ==========================
 // 8. Ajout d’une œuvre
@@ -166,7 +185,6 @@ form.addEventListener("submit", event => {
 
   form.reset();
 });
-
 
 // ==========================
 // 9. Affichage initial
