@@ -20,7 +20,6 @@
   </header>
 
   <main>
-    <!-- Filtres par type -->
     <section id="filters">
       <button type="button" data-type="Tous">Tous</button>
       <button type="button" data-type="Livre">Livres</button>
@@ -28,7 +27,6 @@
       <button type="button" data-type="Album">Albums</button>
     </section>
 
-    <!-- Barre de recherche -->
     <section id="search-section">
       <input
         type="text"
@@ -37,24 +35,12 @@
       />
     </section>
 
-    <!-- Formulaire d'ajout -->
     <section id="form-section">
       <h2>Ajouter une œuvre</h2>
 
       <form id="item-form">
-        <input
-          type="text"
-          id="title"
-          placeholder="Titre"
-          required
-        />
-
-        <input
-          type="text"
-          id="creator"
-          placeholder="Créateur"
-          required
-        />
+        <input type="text" id="title" placeholder="Titre" required />
+        <input type="text" id="creator" placeholder="Créateur" required />
 
         <select id="type">
           <option value="Livre">Livre</option>
@@ -81,8 +67,8 @@
       </form>
     </section>
 
-    <!-- Zone d'affichage des cartes -->
     <section id="detail-view" class="hidden"></section>
+
     <section id="library"></section>
   </main>
 
