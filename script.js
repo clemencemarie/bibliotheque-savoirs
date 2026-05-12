@@ -1,29 +1,28 @@
 let items = JSON.parse(localStorage.getItem("items")) || [
-
   {
+    id: 1,
     title: "Le cercle",
     type: "Livre",
     creator: "Dave Eggers",
     rating: 4,
     tags: ["technologie", "surveillance"]
   },
-
   {
+    id: 2,
     title: "Princesse Mononoké",
     type: "Film",
     creator: "Hayao Miyazaki",
     rating: 5,
     tags: ["écologie", "japon"]
   },
-
   {
+    id: 3,
     title: "In Rainbows",
     type: "Album",
     creator: "Radiohead",
     rating: 5,
     tags: ["musique", "rock"]
   }
-
 ];
 
 const library = document.getElementById("library");
