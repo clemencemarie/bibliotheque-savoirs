@@ -66,9 +66,7 @@ function displayItems(filteredItems) {
       <h2>${item.title}</h2>
 
       <p><strong>Type :</strong> ${item.type}</p>
-
       <p><strong>Créateur :</strong> ${item.creator}</p>
-
       <p><strong>Note :</strong> ${item.rating}/5</p>
 
       <div>
@@ -76,10 +74,24 @@ function displayItems(filteredItems) {
           `<span class="tag">${tag}</span>`
         ).join("")}
       </div>
+
+      <button class="delete-button" data-id="${item.id}">
+      Supprimer
+      </button>
     `;
 
     library.appendChild(card);
+const deleteButton = card.querySelector(".delete-button");
 
+deleteButton.addEventListener("click", () => {
+  const itemId = Number(deleteButton.dataset.id);
+
+  items = items.filter(item => item.id !== itemId);
+
+  saveItems();
+
+  displayItems(items);
+});
   });
 }
 
@@ -130,17 +142,13 @@ form.addEventListener("submit", (event) => {
 
   event.preventDefault();
 
-  const newItem = {
-
-    title: titleInput.value,
-
-    creator: creatorInput.value,
-
-    type: typeInput.value,
-
-    rating: ratingInput.value,
-
-    tags: tagsInput.value
+ const newItem = {
+  id: Date.now(),
+  title: titleInput.value,
+  creator: creatorInput.value,
+  type: typeInput.value,
+  rating: ratingInput.value,
+  tags: tagsInput.value
       .split(",")
       .map(tag => tag.trim())
 
