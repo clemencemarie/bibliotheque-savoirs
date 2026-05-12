@@ -186,10 +186,13 @@ button:hover {
 }
 
 .card-banner {
-  height: 120px;
+  height: 220px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
   display: flex;
-  align-items: flex-start;
   justify-content: flex-end;
+  align-items: flex-start;
   padding: 16px;
 }
 
@@ -326,7 +329,9 @@ button:hover {
 }
 
 .detail-banner {
-  height: 220px;
+  height: 320px;
+  background-size: cover;
+  background-position: center;
 }
 
 .detail-content {
