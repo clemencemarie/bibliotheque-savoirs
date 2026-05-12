@@ -8,9 +8,8 @@ let items = JSON.parse(localStorage.getItem("items")) || [
     title: "Le cercle",
     type: "Livre",
     creator: "Dave Eggers",
-    rating: 4,
+    rating: 8,
     tags: ["technologie", "surveillance"],
-    color: "#F4A261",
     description: "Un roman sur les dérives de la transparence numérique, de la surveillance et des grandes plateformes."
   },
   {
@@ -18,9 +17,8 @@ let items = JSON.parse(localStorage.getItem("items")) || [
     title: "Princesse Mononoké",
     type: "Film",
     creator: "Hayao Miyazaki",
-    rating: 5,
+    rating: 10,
     tags: ["écologie", "japon"],
-    color: "#2A9D8F",
     description: "Un film d’animation sur le rapport entre les humains, la forêt, les esprits et la violence industrielle."
   },
   {
@@ -28,13 +26,11 @@ let items = JSON.parse(localStorage.getItem("items")) || [
     title: "In Rainbows",
     type: "Album",
     creator: "Radiohead",
-    rating: 5,
+    rating: 9,
     tags: ["musique", "rock"],
-    color: "#E76F51",
     description: "Un album dense, sensible et atmosphérique, entre mélancolie, tension et beauté sonore."
   }
 ];
-
 
 // ==========================
 // 2. Sélection des éléments HTML
@@ -44,14 +40,12 @@ const library = document.getElementById("library");
 const detailView = document.getElementById("detail-view");
 const filterButtons = document.querySelectorAll("#filters button");
 const searchInput = document.getElementById("search-input");
-
 const form = document.getElementById("item-form");
 const titleInput = document.getElementById("title");
 const creatorInput = document.getElementById("creator");
 const typeInput = document.getElementById("type");
 const ratingInput = document.getElementById("rating");
 const tagsInput = document.getElementById("tags");
-
 
 // ==========================
 // 3. Sauvegarde locale
@@ -61,6 +55,33 @@ function saveItems() {
   localStorage.setItem("items", JSON.stringify(items));
 }
 
+function getCategoryClass(type) {
+  if (type === "Livre") {
+    return "category-book";
+  }
+
+  if (type === "Film") {
+    return "category-movie";
+  }
+
+  if (type === "Album") {
+    return "category-album";
+  }
+
+  return "category-default";
+}
+
+function getRatingClass(rating) {
+  if (rating >= 8) {
+    return "rating-good";
+  }
+
+  if (rating >= 5) {
+    return "rating-medium";
+  }
+
+  return "rating-low";
+}
 
 // ==========================
 // 4. Affichage de la bibliothèque
@@ -75,44 +96,43 @@ function displayItems(itemsToDisplay) {
     card.classList.add("card");
 
     card.innerHTML = `
-      <div
-        class="card-banner"
-        style="background-color: ${item.color};"
+  <div class="card-banner ${getCategoryClass(item.type)}">
+    <span class="card-type">${item.type}</span>
+  </div>
+
+  <div class="card-content">
+    <div class="card-title-row">
+      <h2>${item.title}</h2>
+
+      <span class="rating-badge ${getRatingClass(item.rating)}">
+        ${item.rating}
+      </span>
+    </div>
+
+    <p class="creator">
+      ${item.creator}
+    </p>
+
+    <div class="tags-container">
+      ${item.tags
+        .map(tag => `<span class="tag">${tag}</span>`)
+        .join("")}
+    </div>
+
+    <div class="card-footer">
+      <span class="details-hint">
+        Voir la fiche
+      </span>
+
+      <button
+        class="delete-button"
+        data-id="${item.id}"
       >
-        <span class="card-type">${item.type}</span>
-      </div>
-
-      <div class="card-content">
-        <h2>${item.title}</h2>
-
-        <p class="creator">
-          ${item.creator}
-        </p>
-
-        <p class="description">
-          ${item.description}
-        </p>
-
-        <div class="tags-container">
-          ${item.tags
-            .map(tag => `<span class="tag">${tag}</span>`)
-            .join("")}
-        </div>
-
-        <div class="card-footer">
-          <span class="rating">
-            ⭐ ${item.rating}/5
-          </span>
-
-          <button
-            class="delete-button"
-            data-id="${item.id}"
-          >
-            Supprimer
-          </button>
-        </div>
-      </div>
-    `;
+        Supprimer
+      </button>
+    </div>
+  </div>
+`;
 
     card.addEventListener("click", event => {
       if (event.target.classList.contains("delete-button")) {
@@ -133,10 +153,8 @@ function displayItems(itemsToDisplay) {
 
 function showDetails(item) {
   detailView.innerHTML = `
-    <div
-      class="detail-banner"
-      style="background-color: ${item.color};"
-    ></div>
+    <div class="detail-banner ${getCategoryClass(item.type)}">
+    </div>
 
     <div class="detail-content">
       <h2>${item.title}</h2>
@@ -155,8 +173,10 @@ function showDetails(item) {
           .join("")}
       </div>
 
-      <p class="detail-rating">
-        ⭐ ${item.rating}/5
+      <p>
+        <span class="rating-badge detail-rating ${getRatingClass(item.rating)}">
+          ${item.rating}
+        </span>
       </p>
 
       <button class="close-button">
