@@ -3,39 +3,39 @@
 // ==========================
 
 let items = JSON.parse(localStorage.getItem("items")) || [
- {
-  id: 1,
-  title: "Le cercle",
-  type: "Livre",
-  creator: "Dave Eggers",
-  rating: 4,
-  tags: ["technologie", "surveillance"],
-  color: "#F4A261",
-  description:,
-  image: "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1376915260i/18302455.jpg"
-}
- {
-  id: 2,
-  title: "Princesse Mononoké",
-  type: "Film",
-  creator: "Hayao Miyazaki",
-  rating: 5,
-  tags: ["écologie", "japon"],
-  color: "#2A9D8F",
-  description:,
-  image: "https://m.media-amazon.com/images/M/MV5BMTQ5ODMyNTgzOV5BMl5BanBnXkFtZTcwNzg0NjEzNw@@._V1_.jpg"
-}
-{
-  id: 3,
-  title: "In Rainbows",
-  type: "Album",
-  creator: "Radiohead",
-  rating: 5,
-  tags: ["musique", "rock"],
-  color: "#E76F51",
-  description:,
-  image: "https://upload.wikimedia.org/wikipedia/en/2/2e/In_Rainbows_Official_Cover.jpg"
-}
+  {
+    id: 1,
+    title: "Le cercle",
+    type: "Livre",
+    creator: "Dave Eggers",
+    rating: 4,
+    tags: ["technologie", "surveillance"],
+    color: "#F4A261",
+    description: "Un roman sur les dérives de la transparence numérique, de la surveillance et des grandes plateformes.",
+    image: "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1376915260i/18302455.jpg"
+  },
+  {
+    id: 2,
+    title: "Princesse Mononoké",
+    type: "Film",
+    creator: "Hayao Miyazaki",
+    rating: 5,
+    tags: ["écologie", "japon"],
+    color: "#2A9D8F",
+    description: "Un film d’animation sur le rapport entre les humains, la forêt, les esprits et la violence industrielle.",
+    image: "https://m.media-amazon.com/images/M/MV5BMTQ5ODMyNTgzOV5BMl5BanBnXkFtZTcwNzg0NjEzNw@@._V1_.jpg"
+  },
+  {
+    id: 3,
+    title: "In Rainbows",
+    type: "Album",
+    creator: "Radiohead",
+    rating: 5,
+    tags: ["musique", "rock"],
+    color: "#E76F51",
+    description: "Un album dense, sensible et atmosphérique, entre mélancolie, tension et beauté sonore.",
+    image: "https://upload.wikimedia.org/wikipedia/en/2/2e/In_Rainbows_Official_Cover.jpg"
+  }
 ];
 
 
@@ -47,12 +47,14 @@ const library = document.getElementById("library");
 const detailView = document.getElementById("detail-view");
 const filterButtons = document.querySelectorAll("#filters button");
 const searchInput = document.getElementById("search-input");
+
 const form = document.getElementById("item-form");
 const titleInput = document.getElementById("title");
 const creatorInput = document.getElementById("creator");
 const typeInput = document.getElementById("type");
 const ratingInput = document.getElementById("rating");
 const tagsInput = document.getElementById("tags");
+
 
 // ==========================
 // 3. Sauvegarde
@@ -61,6 +63,7 @@ const tagsInput = document.getElementById("tags");
 function saveItems() {
   localStorage.setItem("items", JSON.stringify(items));
 }
+
 
 // ==========================
 // 4. Affichage des œuvres
@@ -73,10 +76,14 @@ function displayItems(itemsToDisplay) {
     const card = document.createElement("div");
     card.classList.add("card");
 
+    const bannerStyle = item.image
+      ? `background-image: url('${item.image}');`
+      : `background-color: ${item.color};`;
+
     card.innerHTML = `
       <div
         class="card-banner"
-        style="background-image: url('${item.image}');"
+        style="${bannerStyle}"
       >
         <span class="card-type">${item.type}</span>
       </div>
@@ -123,16 +130,21 @@ function displayItems(itemsToDisplay) {
   });
 }
 
+
 // ==========================
 // 5. Affichage du détail
 // ==========================
 
 function showDetails(item) {
+  const detailBannerStyle = item.image
+    ? `background-image: url('${item.image}');`
+    : `background-color: ${item.color};`;
+
   detailView.innerHTML = `
-  <div
-    class="detail-banner"
-    style="background-image: url('${item.image}');"
-  ></div>
+    <div
+      class="detail-banner"
+      style="${detailBannerStyle}"
+    ></div>
 
     <div class="detail-content">
       <h2>${item.title}</h2>
@@ -168,6 +180,7 @@ function showDetails(item) {
   });
 }
 
+
 // ==========================
 // 6. Suppression d’une œuvre
 // ==========================
@@ -183,6 +196,7 @@ library.addEventListener("click", event => {
     detailView.classList.add("hidden");
   }
 });
+
 
 // ==========================
 // 7. Filtrage par type
@@ -200,6 +214,7 @@ filterButtons.forEach(button => {
     }
   });
 });
+
 
 // ==========================
 // 8. Recherche
@@ -219,6 +234,7 @@ searchInput.addEventListener("input", () => {
   displayItems(filteredItems);
 });
 
+
 // ==========================
 // 9. Ajout d’une œuvre
 // ==========================
@@ -237,7 +253,8 @@ form.addEventListener("submit", event => {
       .map(tag => tag.trim())
       .filter(tag => tag !== ""),
     color: "#8AB17D",
-    description: "Aucune description ajoutée pour le moment."
+    description: "Aucune description ajoutée pour le moment.",
+    image: ""
   };
 
   items.push(newItem);
@@ -247,6 +264,7 @@ form.addEventListener("submit", event => {
 
   form.reset();
 });
+
 
 // ==========================
 // 10. Affichage initial
